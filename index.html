@@ -37,22 +37,6 @@ h1 {
     box-shadow: 0 0 40px rgba(255, 46, 166, 0.6);
 }
 
-button {
-    background: #ff2ea6;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    color: white;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 10px;
-    box-shadow: 0 0 15px #ff2ea6;
-}
-
-button:hover {
-    background: #ff4db8;
-}
-
 .footer {
     margin-top: 40px;
     opacity: 0.7;
@@ -67,29 +51,18 @@ button:hover {
     <div class="status">🔴 UŽIVO 24/7</div>
 
     <div class="player">
-       <iframe 
-    src="https://stream1.srvnetplus.com/start/darko" 
-    width="100%" 
-    height="200" 
-    frameborder="0" 
-    allow="autoplay">
-</iframe>
+
+        <audio controls autoplay style="width: 100%; max-width: 400px;">
+            <source src="https://corsproxy.io/?http://stream1.srvnetplus.com:8153/stream" type="audio/mpeg">
+            Tvoj browser ne podržava audio.
+        </audio>
+
     </div>
 
     <div class="footer">
         Slušaj Radio Elena gde god da si ❤️
     </div>
 </div>
-
-<script>
-function playRadio() {
-    document.getElementById("radio").play();
-}
-
-function stopRadio() {
-    document.getElementById("radio").pause();
-}
-</script>
 
 </body>
 </html>
