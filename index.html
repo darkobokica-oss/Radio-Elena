@@ -21,25 +21,14 @@ body {
 h1 {
     font-size: 60px;
     color: #ff2ea6;
-    text-shadow: 0 0 25px #ff2ea6, 0 0 50px #ff2ea6;
-}
-
-.status {
-    margin-top: 10px;
-    color: #00ffcc;
+    text-shadow: 0 0 25px #ff2ea6;
 }
 
 .player {
     margin-top: 40px;
-    padding: 30px;
     border-radius: 20px;
-    background: #111;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(255, 46, 166, 0.6);
-}
-
-.footer {
-    margin-top: 40px;
-    opacity: 0.7;
 }
 </style>
 </head>
@@ -48,19 +37,15 @@ h1 {
 
 <div class="container">
     <h1>🎧 RADIO ELENA</h1>
-    <div class="status">🔴 UŽIVO 24/7</div>
+    <p>🔴 UŽIVO 24/7</p>
 
     <div class="player">
-
-        <audio controls autoplay style="width: 100%; max-width: 400px;">
-            <source src="https://corsproxy.io/?http://stream1.srvnetplus.com:8153/stream" type="audio/mpeg">
-            Tvoj browser ne podržava audio.
-        </audio>
-
-    </div>
-
-    <div class="footer">
-        Slušaj Radio Elena gde god da si ❤️
+        <iframe 
+            src="http://stream1.srvnetplus.com/start/darko" 
+            width="100%" 
+            height="250" 
+            frameborder="0">
+        </iframe>
     </div>
 </div>
 
