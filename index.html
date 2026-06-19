@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Elena</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #0f0f1a, #05050a);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 60px;
+    color: #ff2ea6;
+    text-shadow: 0 0 25px #ff2ea6, 0 0 50px #ff2ea6;
+}
+
+.status {
+    margin-top: 10px;
+    color: #00ffcc;
+}
+
+.player {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 20px;
+    background: #111;
+    box-shadow: 0 0 40px rgba(255, 46, 166, 0.6);
+}
+
+button {
+    background: #ff2ea6;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px;
+    box-shadow: 0 0 15px #ff2ea6;
+}
+
+button:hover {
+    background: #ff4db8;
+}
+
+.footer {
+    margin-top: 40px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🎧 RADIO ELENA</h1>
+    <div class="status">🔴 UŽIVO 24/7</div>
+
+    <div class="player">
+        <audio id="radio" src="https://stream1.srvnetplus.com:18153/stream" preload="none"></audio>
+
+        <div>
+            <button onclick="playRadio()">▶ PUSTI</button>
+            <button onclick="stopRadio()">⏸ STOP</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        Slušaj Radio Elena gde god da si ❤️
+    </div>
+</div>
+
+<script>
+function playRadio() {
+    document.getElementById("radio").play();
+}
+
+function stopRadio() {
+    document.getElementById("radio").pause();
+}
+</script>
+
+</body>
+</html>
