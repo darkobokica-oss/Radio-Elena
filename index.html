@@ -9,56 +9,23 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: radial-gradient(circle at top, #1a0033, #000);
+    background: #0a0a1a;
     color: white;
     text-align: center;
 }
 
 h1 {
-    margin-top: 40px;
-    font-size: 50px;
     color: #ff2ea6;
-    text-shadow: 0 0 20px #ff2ea6;
-}
-
-.status {
-    color: #00ffcc;
-    margin-bottom: 20px;
+    margin-top: 50px;
 }
 
 .player {
-    margin: auto;
-    width: 320px;
-    padding: 20px;
-    background: #0a0015;
-    border-radius: 20px;
-    box-shadow: 0 0 40px #ff2ea6;
+    margin-top: 40px;
 }
 
-.cover {
-    width: 100%;
-    border-radius: 15px;
-}
-
-.song {
-    margin-top: 15px;
-    font-size: 18px;
-    color: #ff2ea6;
-}
-
-button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 20px;
-    background: #ff2ea6;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #ff4db8;
+audio {
+    width: 80%;
+    max-width: 400px;
 }
 </style>
 </head>
@@ -66,51 +33,15 @@ button:hover {
 <body>
 
 <h1>🎧 RADIO ELENA</h1>
-<div class="status">🔴 UŽIVO 24/7</div>
+<p>🔴 UŽIVO 24/7</p>
 
 <div class="player">
-
-<img class="cover" src="https://i.imgur.com/8Km9tLL.png">
-
-<div class="song" id="song">Radio svira...</div>
-
-<button onclick="playRadio()">▶ PUSTI</button>
-<button onclick="stopRadio()">⏸ STOP</button>
-
+    <audio controls>
+        <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
+    </audio>
 </div>
 
-<audio id="radio">
-<source src="https://stream1.srvnetplus.com:18153/;" type="audio/mpeg">
-</audio>
-
-<script>
-
-const audio = document.getElementById("radio");
-
-function playRadio() {
-    audio.play();
-}
-
-function stopRadio() {
-    audio.pause();
-}
-
-// Fake pesme (za izgled)
-const songs = [
-"Elena XO - Do kraja sveta",
-"Vukan Jovanovic - Noć gori",
-"Luka XO - Ona zove me"
-];
-
-function changeSong() {
-    const random = songs[Math.floor(Math.random() * songs.length)];
-    document.getElementById("song").innerText = random;
-}
-
-setInterval(changeSong, 5000);
-changeSong();
-
-</script>
+<p>Slušaj Radio Elena gde god da si ❤️</p>
 
 </body>
 </html>
