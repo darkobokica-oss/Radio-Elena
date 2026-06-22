@@ -37,7 +37,7 @@
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* Cover */
+        /* Cover sa animacijom */
         .cover {
             width: 200px;
             height: 200px;
@@ -50,6 +50,7 @@
             font-size: 72px;
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -58,6 +59,16 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* KROTACIJA KADA SVIRA */
+        .cover.spinning {
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Trenutna pesma */
@@ -254,8 +265,9 @@
 <div class="player">
 
     <!-- Cover -->
-    <div class="cover">
+    <div class="cover" id="cover">
         <span>🎵</span>
+        <!-- Ako imaš logo: <img src="logo.png" alt="Radio Elena" /> -->
     </div>
 
     <!-- Trenutna pesma -->
@@ -318,10 +330,11 @@
     const progressBar = document.getElementById('progressBar');
     const songTitle = document.getElementById('songTitle');
     const artistName = document.getElementById('artistName');
+    const cover = document.getElementById('cover');
 
     let isPlaying = false;
 
-    // === PESME (menjaj po potrebi) ===
+    // === PESME ===
     const songs = [
         { title: 'Stakleno Srce', artist: 'Darkobokica' },
         { title: 'Kraj starog mosta', artist: 'Darkobokica' },
@@ -341,6 +354,7 @@
             audio.pause();
             playBtn.textContent = '▶';
             playBtn.classList.remove('playing');
+            cover.classList.remove('spinning');
             isPlaying = false;
         } else {
             loadingMsg.classList.add('show');
@@ -348,6 +362,7 @@
                 loadingMsg.classList.remove('show');
                 playBtn.textContent = '⏸';
                 playBtn.classList.add('playing');
+                cover.classList.add('spinning');
                 isPlaying = true;
             }).catch(() => {
                 loadingMsg.classList.remove('show');
@@ -368,7 +383,6 @@
             currentTimeEl.textContent = formatTime(this.currentTime);
             totalTimeEl.textContent = formatTime(this.duration);
         } else {
-            // Ako nema duration, samo prikaži trenutno vreme
             currentTimeEl.textContent = formatTime(this.currentTime);
             totalTimeEl.textContent = '--:--';
         }
@@ -394,14 +408,26 @@
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
         updateSong();
         audio.currentTime = 0;
-        if (!isPlaying) { audio.play(); playBtn.textContent = '⏸'; playBtn.classList.add('playing'); isPlaying = true; }
+        if (!isPlaying) { 
+            audio.play(); 
+            playBtn.textContent = '⏸'; 
+            playBtn.classList.add('playing');
+            cover.classList.add('spinning');
+            isPlaying = true; 
+        }
     });
 
     nextBtn.addEventListener('click', function() {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         updateSong();
         audio.currentTime = 0;
-        if (!isPlaying) { audio.play(); playBtn.textContent = '⏸'; playBtn.classList.add('playing'); isPlaying = true; }
+        if (!isPlaying) { 
+            audio.play(); 
+            playBtn.textContent = '⏸'; 
+            playBtn.classList.add('playing');
+            cover.classList.add('spinning');
+            isPlaying = true; 
+        }
     });
 
     // === AUTO-PLAY ===
@@ -411,6 +437,7 @@
             audio.play().then(() => {
                 playBtn.textContent = '⏸';
                 playBtn.classList.add('playing');
+                cover.classList.add('spinning');
                 isPlaying = true;
             }).catch(() => {});
         }, 800);
