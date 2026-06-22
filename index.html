@@ -33,15 +33,73 @@ audio {
 <body>
 
 <h1>🎧 RADIO ELENA</h1>
-<p>🔴 UŽIVO 24/7</p>
+<p style="color:#00ffcc;">🔴 UŽIVO 24/7</p>
 
-<div class="player">
-    <audio controls>
-        <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
-    </audio>
+<div style="
+margin:auto;
+width:350px;
+padding:20px;
+background:#0a0015;
+border-radius:20px;
+box-shadow:0 0 40px #ff2ea6;
+">
+
+<img src="https://i.imgur.com/8Km9tLL.png" style="width:100%;border-radius:15px;">
+
+<h2 id="song" style="color:#ff2ea6;">Radio svira...</h2>
+
+<button onclick="playRadio()" style="
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#ff2ea6;
+color:white;
+margin:10px;
+">▶ PUSTI</button>
+
+<button onclick="stopRadio()" style="
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#ff2ea6;
+color:white;
+margin:10px;
+">⏸ STOP</button>
+
 </div>
 
 <p>Slušaj Radio Elena gde god da si ❤️</p>
+
+<audio id="radio">
+<source src="https://stream1.srvnetplus.com:18153/;" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById("radio");
+
+function playRadio() {
+    audio.play();
+}
+
+function stopRadio() {
+    audio.pause();
+}
+
+// samo za izgled (fake pesma)
+const songs = [
+"Elena XO - Do kraja sveta",
+"Vukan Jovanovic - Noć gori",
+"Luka XO - Ona zove me"
+];
+
+function changeSong() {
+    const random = songs[Math.floor(Math.random() * songs.length)];
+    document.getElementById("song").innerText = random;
+}
+
+setInterval(changeSong, 5000);
+changeSong();
+</script>
 
 </body>
 </html>
