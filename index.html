@@ -15,39 +15,50 @@ body {
 }
 
 h1 {
+    margin-top: 40px;
     font-size: 50px;
     color: #ff2ea6;
     text-shadow: 0 0 20px #ff2ea6;
 }
 
-.player-box {
-    margin: 40px auto;
-    padding: 30px;
-    width: 350px;
-    border-radius: 20px;
-    background: #0a0015;
-    box-shadow: 0 0 30px #ff2ea6;
+.status {
+    color: #00ffcc;
+    margin-bottom: 20px;
 }
 
-img {
+.player {
+    margin: auto;
+    width: 320px;
+    padding: 20px;
+    background: #0a0015;
+    border-radius: 20px;
+    box-shadow: 0 0 40px #ff2ea6;
+}
+
+.cover {
     width: 100%;
     border-radius: 15px;
 }
 
 .song {
     margin-top: 15px;
-    font-size: 20px;
+    font-size: 18px;
     color: #ff2ea6;
 }
 
-audio {
-    width: 100%;
+button {
     margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 20px;
+    background: #ff2ea6;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.status {
-    margin-top: 10px;
-    color: #00ffcc;
+button:hover {
+    background: #ff4db8;
 }
 </style>
 </head>
@@ -57,25 +68,38 @@ audio {
 <h1>🎧 RADIO ELENA</h1>
 <div class="status">🔴 UŽIVO 24/7</div>
 
-<div class="player-box">
-    <img src="https://i.imgur.com/8Km9tLL.png">
+<div class="player">
 
-    <div class="song" id="song">
-        Učitavanje pesme...
-    </div>
+<img class="cover" src="https://i.imgur.com/8Km9tLL.png">
 
-    <audio controls autoplay>
-        <source src="https://stream1.srvnetplus.com:18153/;" type="audio/mpeg">
-    </audio>
+<div class="song" id="song">Radio svira...</div>
+
+<button onclick="playRadio()">▶ PUSTI</button>
+<button onclick="stopRadio()">⏸ STOP</button>
+
 </div>
 
+<audio id="radio">
+<source src="https://stream1.srvnetplus.com:18153/;" type="audio/mpeg">
+</audio>
+
 <script>
-// Fake trenutno svira (možemo kasnije povezati pravi)
+
+const audio = document.getElementById("radio");
+
+function playRadio() {
+    audio.play();
+}
+
+function stopRadio() {
+    audio.pause();
+}
+
+// Fake pesme (za izgled)
 const songs = [
 "Elena XO - Do kraja sveta",
 "Vukan Jovanovic - Noć gori",
-"Luka XO - Ona zove me",
-"Radio Elena - Najbolji hitovi"
+"Luka XO - Ona zove me"
 ];
 
 function changeSong() {
@@ -85,6 +109,7 @@ function changeSong() {
 
 setInterval(changeSong, 5000);
 changeSong();
+
 </script>
 
 </body>
