@@ -7,7 +7,6 @@
     
     <meta property="og:title" content="Radio Elena" />
     <meta property="og:description" content="Slušajte Radio Elena 24/7!" />
-    <meta property="og:image" content="logo.png" />
     <meta name="theme-color" content="#1db954" />
     
     <style>
@@ -33,11 +32,12 @@
             background: linear-gradient(145deg, #1e1e2a, #14141e);
             border-radius: 24px;
             padding: 28px 24px 32px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* --- COVER SLIKA --- */
+        /* Cover */
         .cover {
             width: 200px;
             height: 200px;
@@ -50,29 +50,39 @@
             font-size: 72px;
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            overflow: hidden;
         }
 
         .cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 16px;
         }
 
-        /* --- INFO --- */
+        /* Trenutna pesma */
+        .now-playing {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
         .title {
             font-size: 22px;
             font-weight: 700;
             color: #fff;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .artist {
             font-size: 15px;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
             margin: 2px 0 4px;
         }
 
+        /* Status */
         .status {
             display: inline-flex;
             align-items: center;
@@ -80,7 +90,7 @@
             font-size: 12px;
             color: #1db954;
             font-weight: 600;
-            margin: 6px 0 16px;
+            margin: 6px 0 14px;
         }
 
         .dot {
@@ -97,19 +107,19 @@
             50% { opacity: 0.3; }
         }
 
-        /* --- KONTROLE (Spotify stil) --- */
+        /* Kontrole */
         .controls {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 24px;
-            margin: 12px 0 4px;
+            margin: 8px 0 4px;
         }
 
         .controls button {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
             font-size: 22px;
             cursor: pointer;
             transition: all 0.2s;
@@ -142,17 +152,15 @@
         .controls .play-btn:hover {
             background: #1ed760;
             transform: scale(1.04);
-            box-shadow: 0 8px 32px rgba(29, 185, 84, 0.4);
         }
 
         .controls .play-btn.playing {
             background: #1db954;
-            box-shadow: 0 8px 24px rgba(29, 185, 84, 0.3);
         }
 
-        /* --- PROGRESS BAR --- */
+        /* Progress */
         .progress {
-            margin: 14px 0 6px;
+            margin: 12px 0 4px;
         }
 
         .progress-bar {
@@ -180,10 +188,26 @@
             margin-top: 4px;
         }
 
-        /* --- FOOTER --- */
-        .footer {
-            margin-top: 18px;
+        /* Loading */
+        .loading {
             color: rgba(255, 255, 255, 0.15);
+            font-size: 12px;
+            margin: 4px 0 8px;
+            display: none;
+        }
+        .loading.show {
+            display: block;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.12);
             font-size: 13px;
         }
 
@@ -191,7 +215,6 @@
             color: #ff2ea6;
         }
 
-        /* --- SHARE --- */
         .share-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -217,22 +240,6 @@
             margin-right: 4px;
         }
 
-        /* --- LOADING --- */
-        .loading {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 12px;
-            margin: 4px 0 8px;
-            display: none;
-        }
-        .loading.show {
-            display: block;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-
         @media (max-width: 400px) {
             .player { padding: 20px 16px 24px; }
             .cover { width: 160px; height: 160px; font-size: 56px; }
@@ -249,13 +256,14 @@
     <!-- Cover -->
     <div class="cover">
         <span>🎵</span>
-        <!-- <img src="logo.png" alt="Radio Elena" /> -->
     </div>
 
-    <!-- Info -->
-    <div class="title">Radio Elena</div>
-    <div class="artist">Uživo 24/7</div>
+    <!-- Trenutna pesma -->
+    <div class="now-playing">TRENUTNO NA RADIJU</div>
+    <div class="title" id="songTitle">Radio Elena</div>
+    <div class="artist" id="artistName">Uživo 24/7</div>
 
+    <!-- Status -->
     <div class="status">
         <span class="dot"></span> UŽIVO
     </div>
@@ -277,7 +285,7 @@
         </div>
         <div class="time">
             <span id="currentTime">0:00</span>
-            <span id="totalTime">0:00</span>
+            <span id="totalTime">--:--</span>
         </div>
     </div>
 
@@ -308,9 +316,24 @@
     const currentTimeEl = document.getElementById('currentTime');
     const totalTimeEl = document.getElementById('totalTime');
     const progressBar = document.getElementById('progressBar');
+    const songTitle = document.getElementById('songTitle');
+    const artistName = document.getElementById('artistName');
 
     let isPlaying = false;
-    let isLoaded = false;
+
+    // === PESME (menjaj po potrebi) ===
+    const songs = [
+        { title: 'Stakleno Srce', artist: 'Darkobokica' },
+        { title: 'Kraj starog mosta', artist: 'Darkobokica' },
+        { title: 'Radio Elena LIVE', artist: 'Uživo 24/7' }
+    ];
+    let currentSongIndex = 0;
+
+    function updateSong() {
+        const song = songs[currentSongIndex % songs.length];
+        songTitle.textContent = song.title;
+        artistName.textContent = song.artist;
+    }
 
     // === PLAY/PAUSE ===
     function togglePlay() {
@@ -339,16 +362,20 @@
 
     // === PROGRESS ===
     audio.addEventListener('timeupdate', function() {
-        if (this.duration) {
+        if (this.duration && !isNaN(this.duration)) {
             const percent = (this.currentTime / this.duration) * 100;
-            progressFill.style.width = percent + '%';
+            progressFill.style.width = Math.min(percent, 100) + '%';
             currentTimeEl.textContent = formatTime(this.currentTime);
             totalTimeEl.textContent = formatTime(this.duration);
+        } else {
+            // Ako nema duration, samo prikaži trenutno vreme
+            currentTimeEl.textContent = formatTime(this.currentTime);
+            totalTimeEl.textContent = '--:--';
         }
     });
 
     function formatTime(sec) {
-        if (!sec || isNaN(sec)) return '0:00';
+        if (!sec || isNaN(sec) || !isFinite(sec)) return '0:00';
         const m = Math.floor(sec / 60);
         const s = Math.floor(sec % 60);
         return m + ':' + (s < 10 ? '0' : '') + s;
@@ -356,24 +383,30 @@
 
     // === KLIK NA PROGRESS ===
     progressBar.addEventListener('click', function(e) {
-        if (!audio.duration) return;
+        if (!audio.duration || isNaN(audio.duration)) return;
         const rect = this.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
         audio.currentTime = percent * audio.duration;
     });
 
-    // === PREV/NEXT (restart) ===
+    // === PREV/NEXT ===
     prevBtn.addEventListener('click', function() {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        updateSong();
         audio.currentTime = 0;
         if (!isPlaying) { audio.play(); playBtn.textContent = '⏸'; playBtn.classList.add('playing'); isPlaying = true; }
     });
+
     nextBtn.addEventListener('click', function() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        updateSong();
         audio.currentTime = 0;
         if (!isPlaying) { audio.play(); playBtn.textContent = '⏸'; playBtn.classList.add('playing'); isPlaying = true; }
     });
 
     // === AUTO-PLAY ===
     window.addEventListener('load', function() {
+        updateSong();
         setTimeout(() => {
             audio.play().then(() => {
                 playBtn.textContent = '⏸';
