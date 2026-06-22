@@ -9,23 +9,58 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: #0a0a1a;
+    background: radial-gradient(circle at top, #1a0033, #000);
     color: white;
     text-align: center;
 }
 
+/* NASLOV */
 h1 {
     color: #ff2ea6;
     margin-top: 50px;
+    font-size: 45px;
+    text-shadow: 0 0 20px #ff2ea6;
 }
 
-.player {
-    margin-top: 40px;
+.status {
+    color: #00ffcc;
+    margin-bottom: 30px;
 }
 
-audio {
-    width: 80%;
+/* PLAYER BOX */
+.player-box {
+    margin: auto;
+    width: 90%;
     max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    background: #0a0015;
+    box-shadow: 0 0 40px #ff2ea6;
+}
+
+/* SLIKA */
+.cover {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* PESMA */
+.song {
+    font-size: 18px;
+    color: #ff2ea6;
+    margin-bottom: 10px;
+}
+
+/* AUDIO */
+audio {
+    width: 100%;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 30px;
+    color: #ccc;
 }
 </style>
 </head>
@@ -33,68 +68,38 @@ audio {
 <body>
 
 <h1>🎧 RADIO ELENA</h1>
-<p style="color:#00ffcc;">🔴 UŽIVO 24/7</p>
+<div class="status">🔴 UŽIVO 24/7</div>
 
-<div style="
-margin:auto;
-width:350px;
-padding:20px;
-background:#0a0015;
-border-radius:20px;
-box-shadow:0 0 40px #ff2ea6;
-">
+<div class="player-box">
 
-<img src="https://i.imgur.com/8Km9tLL.png" style="width:100%;border-radius:15px;">
+<img class="cover" src="https://i.imgur.com/8Km9tLL.png">
 
-<h2 id="song" style="color:#ff2ea6;">Radio svira...</h2>
+<div class="song" id="song">
+🎶 Radio svira...
+</div>
 
-<button onclick="playRadio()" style="
-padding:10px 20px;
-border:none;
-border-radius:20px;
-background:#ff2ea6;
-color:white;
-margin:10px;
-">▶ PUSTI</button>
-
-<button onclick="stopRadio()" style="
-padding:10px 20px;
-border:none;
-border-radius:20px;
-background:#ff2ea6;
-color:white;
-margin:10px;
-">⏸ STOP</button>
+<audio controls>
+    <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
+</audio>
 
 </div>
 
-<p>Slušaj Radio Elena gde god da si ❤️</p>
-
-<audio id="radio">
-<source src="https://stream1.srvnetplus.com:18153/;" type="audio/mpeg">
-</audio>
+<div class="footer">
+Slušaj Radio Elena gde god da si ❤️
+</div>
 
 <script>
-const audio = document.getElementById("radio");
-
-function playRadio() {
-    audio.play();
-}
-
-function stopRadio() {
-    audio.pause();
-}
-
-// samo za izgled (fake pesma)
+// FAKE naziv pesme (da izgleda kao Spotify)
 const songs = [
 "Elena XO - Do kraja sveta",
 "Vukan Jovanovic - Noć gori",
-"Luka XO - Ona zove me"
+"Luka XO - Ona zove me",
+"Radio Elena - Najbolji hitovi"
 ];
 
 function changeSong() {
     const random = songs[Math.floor(Math.random() * songs.length)];
-    document.getElementById("song").innerText = random;
+    document.getElementById("song").innerText = "🎶 " + random;
 }
 
 setInterval(changeSong, 5000);
