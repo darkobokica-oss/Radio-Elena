@@ -67,26 +67,71 @@ audio {
 <body>
 
 <h1>🎧 RADIO ELENA</h1>
-<div class="live">🔴 UŽIVO 24/7</div>
+<div style="color:#00ffcc;">🔴 UŽIVO 24/7</div>
 
-<div class="player-box">
+<div style="
+    max-width:400px;
+    margin:40px auto;
+    background:#0d0d1f;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 0 40px #ff2ea6;
+">
 
-    <!-- SLIKA -->
-    <img src="https://i.imgur.com/8Km9tLL.jpg" class="cover">
+    <img src="https://i.imgur.com/8Km9tLL.jpg" style="
+        width:100%;
+        border-radius:15px;
+    ">
 
-    <!-- PESMA -->
-    <div class="song">🎵 Radio Elena LIVE</div>
+    <h3 style="color:#ff2ea6;margin:15px 0;">
+        🎵 Radio Elena LIVE
+    </h3>
 
-    <!-- PLAYER -->
-    <audio controls autoplay>
+    <!-- PRO PLAYER -->
+    <audio id="radio" autoplay>
         <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
     </audio>
 
+    <!-- CUSTOM CONTROLS -->
+    <div style="margin-top:20px;">
+
+        <button onclick="playRadio()" style="
+            background:#ff2ea6;
+            border:none;
+            padding:12px 20px;
+            border-radius:30px;
+            color:white;
+            font-size:16px;
+            margin-right:10px;
+            cursor:pointer;
+        ">▶ PUSTI</button>
+
+        <button onclick="stopRadio()" style="
+            background:#222;
+            border:none;
+            padding:12px 20px;
+            border-radius:30px;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        ">⏸ STOP</button>
+
+    </div>
+
 </div>
 
-<div class="footer">
+<p style="opacity:0.7;">
 Slušaj Radio Elena gde god da si ❤️
-</div>
+</p>
+
+<script>
+function playRadio(){
+    document.getElementById("radio").play();
+}
+function stopRadio(){
+    document.getElementById("radio").pause();
+}
+</script>
 
 </body>
 </html>
