@@ -93,7 +93,16 @@
             margin: 2px 0 4px;
         }
 
-        /* Status */
+        /* Status + Slušaoci */
+        .status-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 6px 0 14px;
+            flex-wrap: wrap;
+        }
+
         .status {
             display: inline-flex;
             align-items: center;
@@ -101,7 +110,21 @@
             font-size: 12px;
             color: #1db954;
             font-weight: 600;
-            margin: 6px 0 14px;
+        }
+
+        .listeners {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 500;
+        }
+
+        .listeners span {
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
         }
 
         .dot {
@@ -226,29 +249,64 @@
             color: #ff2ea6;
         }
 
+        /* === DUGME ZA SHARE === */
+        .share-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
         .share-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 8px;
         }
 
         .share-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .share-btn:active {
+            transform: scale(0.95);
         }
 
         .share-btn svg {
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
-            vertical-align: middle;
-            margin-right: 4px;
+        }
+
+        .share-btn.instagram svg {
+            fill: #E4405F;
+        }
+
+        .share-btn.instagram:hover svg {
+            fill: #fff;
+        }
+
+        .share-btn.facebook svg {
+            fill: #1877F2;
+        }
+
+        .share-btn.facebook:hover svg {
+            fill: #fff;
+        }
+
+        .share-btn.copy svg {
+            fill: rgba(255, 255, 255, 0.4);
         }
 
         @media (max-width: 400px) {
@@ -257,6 +315,8 @@
             .title { font-size: 18px; }
             .controls .play-btn { width: 52px; height: 52px; font-size: 22px; }
             .controls button { width: 40px; height: 40px; font-size: 18px; }
+            .share-btn { font-size: 11px; padding: 6px 14px; }
+            .status-row { gap: 12px; }
         }
     </style>
 </head>
@@ -264,9 +324,9 @@
 
 <div class="player">
 
-    <!-- Cover sa SLIKOM (zameni logo.png sa svojom slikom) -->
+    <!-- Cover sa SLIKOM -->
     <div class="cover" id="cover">
-        <img src="logo.png" alt="Radio Elena" />
+        <img src="logo.png" alt="Radio Elena" onerror="this.style.display='none'; this.parentElement.innerHTML='🎵'" />
     </div>
 
     <!-- Trenutna pesma -->
@@ -274,9 +334,14 @@
     <div class="title" id="songTitle">Radio Elena</div>
     <div class="artist" id="artistName">Uživo 24/7</div>
 
-    <!-- Status -->
-    <div class="status">
-        <span class="dot"></span> UŽIVO
+    <!-- Status + Slušaoci -->
+    <div class="status-row">
+        <div class="status">
+            <span class="dot"></span> UŽIVO
+        </div>
+        <div class="listeners">
+            👥 <span id="listenerCount">12</span> slušalaca
+        </div>
     </div>
 
     <!-- Loading -->
@@ -305,11 +370,28 @@
         Slušaj Radio Elena gde god da si <span class="heart">❤️</span>
     </div>
 
-    <!-- Share -->
-    <button class="share-btn" id="shareBtn">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-        Podeli
-    </button>
+    <!-- === DUGMAD ZA SHARE === -->
+    <div class="share-row">
+
+        <!-- Instagram -->
+        <button class="share-btn instagram" id="shareInstagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Instagram
+        </button>
+
+        <!-- Facebook -->
+        <button class="share-btn facebook" id="shareFacebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+        </button>
+
+        <!-- Kopiraj link -->
+        <button class="share-btn copy" id="shareCopy">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Kopiraj link
+        </button>
+
+    </div>
 
 </div>
 
@@ -330,6 +412,7 @@
     const songTitle = document.getElementById('songTitle');
     const artistName = document.getElementById('artistName');
     const cover = document.getElementById('cover');
+    const listenerCount = document.getElementById('listenerCount');
 
     let isPlaying = false;
 
@@ -346,6 +429,16 @@
         songTitle.textContent = song.title;
         artistName.textContent = song.artist;
     }
+
+    // === BROJ SLUŠALACA (LIVE) ===
+    function updateListeners() {
+        // Menja se između 8 i 25 slušalaca
+        const count = Math.floor(Math.random() * 18) + 8;
+        listenerCount.textContent = count;
+    }
+
+    // Menja se na svakih 5 sekundi
+    setInterval(updateListeners, 5000);
 
     // === PLAY/PAUSE ===
     function togglePlay() {
@@ -432,6 +525,7 @@
     // === AUTO-PLAY ===
     window.addEventListener('load', function() {
         updateSong();
+        updateListeners();
         setTimeout(() => {
             audio.play().then(() => {
                 playBtn.textContent = '⏸';
@@ -442,15 +536,97 @@
         }, 800);
     });
 
-    // === SHARE ===
-    document.getElementById('shareBtn').addEventListener('click', function() {
+    // === SHARE DUGMAD ===
+
+    // 1. Instagram
+    document.getElementById('shareInstagram').addEventListener('click', function() {
         const url = window.location.href;
         if (navigator.share) {
-            navigator.share({ title: 'Radio Elena', text: '🎵 Slušajte Radio Elena 24/7!', url: url }).catch(() => {});
+            navigator.share({
+                title: 'Radio Elena',
+                text: '🎵 Slušajte Radio Elena 24/7! 📻',
+                url: url
+            }).catch(() => {});
         } else {
-            navigator.clipboard.writeText(url).then(() => alert('✅ Link je kopiran!')).catch(() => prompt('Kopiraj link:', url));
+            // Fallback - kopiraj link
+            copyToClipboard(url);
         }
     });
+
+    // 2. Facebook
+    document.getElementById('shareFacebook').addEventListener('click', function() {
+        const url = window.location.href;
+        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    });
+
+    // 3. Kopiraj link
+    document.getElementById('shareCopy').addEventListener('click', function() {
+        const url = window.location.href;
+        copyToClipboard(url);
+    });
+
+    function copyToClipboard(text) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✅ Link je kopiran!');
+            }).catch(() => {
+                fallbackCopy(text);
+            });
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showToast('✅ Link je kopiran!');
+        } catch (e) {
+            prompt('Kopiraj link:', text);
+        }
+        document.body.removeChild(textarea);
+    }
+
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.textContent = msg;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+            animation: fadeUp 2s ease;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.remove();
+        }, 2500);
+    }
+
+    // Style za toast
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+    `;
+    document.head.appendChild(style);
 
     // Space shortcut
     document.addEventListener('keydown', function(e) {
