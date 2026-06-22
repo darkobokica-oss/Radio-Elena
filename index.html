@@ -14,28 +14,28 @@ body {
     text-align: center;
 }
 
-/* NASLOV */
+/* HEADER */
 h1 {
+    margin-top: 40px;
+    font-size: 40px;
     color: #ff2ea6;
-    margin-top: 50px;
-    font-size: 45px;
     text-shadow: 0 0 20px #ff2ea6;
 }
 
-.status {
+/* STATUS */
+.live {
     color: #00ffcc;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 /* PLAYER BOX */
 .player-box {
-    margin: auto;
-    width: 90%;
-    max-width: 400px;
-    padding: 20px;
+    background: #0d0d1f;
+    margin: 30px auto;
+    padding: 30px;
+    width: 320px;
     border-radius: 20px;
-    background: #0a0015;
-    box-shadow: 0 0 40px #ff2ea6;
+    box-shadow: 0 0 30px #ff2ea6;
 }
 
 /* SLIKA */
@@ -45,9 +45,8 @@ h1 {
     margin-bottom: 15px;
 }
 
-/* PESMA */
+/* NAZIV PESME */
 .song {
-    font-size: 18px;
     color: #ff2ea6;
     margin-bottom: 10px;
 }
@@ -59,8 +58,8 @@ audio {
 
 /* FOOTER */
 .footer {
-    margin-top: 30px;
-    color: #ccc;
+    margin-top: 20px;
+    opacity: 0.7;
 }
 </style>
 </head>
@@ -68,43 +67,26 @@ audio {
 <body>
 
 <h1>🎧 RADIO ELENA</h1>
-<div class="status">🔴 UŽIVO 24/7</div>
+<div class="live">🔴 UŽIVO 24/7</div>
 
 <div class="player-box">
 
-<img class="cover" src="https://i.imgur.com/8Km9tLL.png">
+    <!-- SLIKA -->
+    <img src="https://i.imgur.com/8Km9tLL.jpg" class="cover">
 
-<div class="song" id="song">
-🎶 Radio svira...
-</div>
+    <!-- PESMA -->
+    <div class="song">🎵 Radio Elena LIVE</div>
 
-<audio controls>
-    <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
-</audio>
+    <!-- PLAYER -->
+    <audio controls autoplay>
+        <source src="https://stream1.srvnetplus.com:18153/stream" type="audio/mpeg">
+    </audio>
 
 </div>
 
 <div class="footer">
 Slušaj Radio Elena gde god da si ❤️
 </div>
-
-<script>
-// FAKE naziv pesme (da izgleda kao Spotify)
-const songs = [
-"Elena XO - Do kraja sveta",
-"Vukan Jovanovic - Noć gori",
-"Luka XO - Ona zove me",
-"Radio Elena - Najbolji hitovi"
-];
-
-function changeSong() {
-    const random = songs[Math.floor(Math.random() * songs.length)];
-    document.getElementById("song").innerText = "🎶 " + random;
-}
-
-setInterval(changeSong, 5000);
-changeSong();
-</script>
 
 </body>
 </html>
